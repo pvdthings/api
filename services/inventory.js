@@ -11,7 +11,8 @@ const mapItem = (record) => {
         available: record.get('Active Loans') === 0,
         brand: record.get('Brand'),
         estimatedValue: record.get('Estimated Value'),
-        totalLoans: record.get('Total Loans')
+        totalLoans: record.get('Total Loans'),
+        images: record.get('Picture')?.map(image => image.url) || []
     };
 }
 
@@ -21,7 +22,8 @@ const mapThing = (record) => {
         name: record.get('Name'),
         name_es: record.get('name_es'),
         stock: Number(record.get('Stock')),
-        available: Number(record.get('Available'))
+        available: Number(record.get('Available')),
+        images: record.get('Image')?.map(image => image.url) || []
     };
 }
 
@@ -39,7 +41,7 @@ const mapDetailedThing = (record, items) => {
 const fetchInventory = async () => {
     const records = await inventory.select({
         view: 'api_fetch_things',
-        fields: ['ID', 'Name', 'Active Loans'],
+        fields: ['ID', 'Name', 'Active Loans', 'Picture'],
         pageSize: 100
     }).all();
 
@@ -49,7 +51,7 @@ const fetchInventory = async () => {
 const fetchInventoryItem = async ({ id }) => {
     const records = await inventory.select({
         view: 'api_fetch_things',
-        fields: ['ID', 'Name', 'Active Loans'],
+        fields: ['ID', 'Name', 'Active Loans', 'Picture'],
         filterByFormula: `{ID} = '${id}'`,
         pageSize: 100
     }).all();
@@ -75,7 +77,7 @@ const createInventoryItems = async (thingId, { quantity, brand, description, est
 const fetchThings = async () => {
     const records = await things.select({
         view: 'api_by_name',
-        fields: ['Name', 'name_es', 'Stock', 'Available'],
+        fields: ['Name', 'name_es', 'Stock', 'Available', 'Image'],
         pageSize: 100
     }).all();
 

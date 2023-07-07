@@ -12,7 +12,8 @@ const mapItem = (record) => {
         brand: record.get('Brand'),
         estimatedValue: record.get('Estimated Value'),
         totalLoans: record.get('Total Loans'),
-        images: record.get('Picture')?.map(image => image.url) || []
+        images: record.get('Picture')?.map(image => image.url) || [],
+        hidden: record.get('Hidden') || false
     };
 }
 
@@ -24,7 +25,8 @@ const mapThing = (record) => {
         stock: Number(record.get('Stock')),
         available: Number(record.get('Available')),
         images: record.get('Image')?.map(image => image.url) || [],
-        categories: record.get('Category') || []
+        categories: record.get('Category') || [],
+        hidden: record.get('Hidden') || false
     };
 }
 
@@ -35,6 +37,9 @@ const mapDetailedThing = (record, items) => {
         name_es: record.get('name_es'),
         stock: Number(record.get('Stock')),
         available: Number(record.get('Available')),
+        images: record.get('Image')?.map(image => image.url) || [],
+        categories: record.get('Category') || [],
+        hidden: record.get('Hidden') || false,
         items
     };
 }
@@ -42,21 +47,13 @@ const mapDetailedThing = (record, items) => {
 const fetchCategories = () => ThingCategories;
 
 const fetchInventory = async () => {
-    const records = await inventory.select({
-        view: 'api_fetch_things',
-        fields: ['ID', 'Name', 'Active Loans', 'Picture'],
-        pageSize: 100
-    }).all();
-
+    const records = await inventory.select().all();
     return records.map((r) => mapItem(r));
 }
 
 const fetchInventoryItem = async ({ id }) => {
     const records = await inventory.select({
-        view: 'api_fetch_things',
-        fields: ['ID', 'Name', 'Active Loans', 'Picture'],
-        filterByFormula: `{ID} = '${id}'`,
-        pageSize: 100
+        filterByFormula: `{ID} = '${id}'`
     }).all();
 
     return mapItem(records[0]);
@@ -78,12 +75,7 @@ const createInventoryItems = async (thingId, { quantity, brand, description, est
 }
 
 const fetchThings = async () => {
-    const records = await things.select({
-        view: 'api_by_name',
-        fields: ['Name', 'name_es', 'Stock', 'Available', 'Image', 'Category'],
-        pageSize: 100
-    }).all();
-
+    const records = await things.select().all();
     return records.map(mapThing);
 }
 

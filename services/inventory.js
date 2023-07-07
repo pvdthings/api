@@ -40,6 +40,7 @@ const mapDetailedThing = (record, items) => {
         images: record.get('Image')?.map(image => image.url) || [],
         categories: record.get('Category') || [],
         hidden: record.get('Hidden') || false,
+        wishList: record.get('Wish List') || false,
         items
     };
 }

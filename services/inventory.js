@@ -12,7 +12,7 @@ const mapItem = (record) => {
         brand: record.get('Brand'),
         estimatedValue: record.get('Estimated Value'),
         totalLoans: record.get('Total Loans'),
-        images: record.get('Picture')?.map(image => image.url) ?? []
+        images: record.get('Picture')?.map(image => image.url) || []
     };
 }
 
@@ -23,7 +23,7 @@ const mapThing = (record) => {
         name_es: record.get('name_es'),
         stock: Number(record.get('Stock')),
         available: Number(record.get('Available')),
-        images: record.get('Image')?.map(image => image.url) ?? []
+        images: record.get('Image')?.map(image => image.url) || []
     };
 }
 

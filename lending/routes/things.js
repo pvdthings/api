@@ -1,7 +1,11 @@
-const { fetchThings, fetchThing, createThing, updateThing } = require('../../services/inventory');
+const { fetchCategories, fetchThings, fetchThing, createThing, updateThing } = require('../../services/inventory');
 
 const express = require('express');
 const router = express.Router();
+
+router.get('/categories', async (req, res) => {
+    res.send(fetchCategories());
+});
 
 router.get('/', async (req, res) => {
     res.send(await fetchThings());

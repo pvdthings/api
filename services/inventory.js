@@ -1,4 +1,4 @@
-const { base, Table } = require('../db');
+const { base, Table, ThingCategories } = require('../db');
 
 const things = base(Table.Things);
 const inventory = base(Table.Inventory);
@@ -23,7 +23,8 @@ const mapThing = (record) => {
         name_es: record.get('name_es'),
         stock: Number(record.get('Stock')),
         available: Number(record.get('Available')),
-        images: record.get('Image')?.map(image => image.url) || []
+        images: record.get('Image')?.map(image => image.url) || [],
+        categories: record.get('Category') || []
     };
 }
 
@@ -37,6 +38,8 @@ const mapDetailedThing = (record, items) => {
         items
     };
 }
+
+const fetchCategories = () => ThingCategories;
 
 const fetchInventory = async () => {
     const records = await inventory.select({
@@ -77,7 +80,7 @@ const createInventoryItems = async (thingId, { quantity, brand, description, est
 const fetchThings = async () => {
     const records = await things.select({
         view: 'api_by_name',
-        fields: ['Name', 'name_es', 'Stock', 'Available', 'Image'],
+        fields: ['Name', 'name_es', 'Stock', 'Available', 'Image', 'Category'],
         pageSize: 100
     }).all();
 
@@ -117,6 +120,7 @@ const updateThing = async (id, { name, spanishName }) => {
 }
 
 module.exports = {
+    fetchCategories,
     fetchInventory,
     fetchInventoryItem,
     createInventoryItems,

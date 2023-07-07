@@ -16,8 +16,26 @@ const BorrowerIssue = {
     NeedsLiabilityWaiver: 'needsLiabilityWaiver'
 };
 
+const ThingCategories = [
+    'Media',
+    'Games',
+    'Outdoors',
+    'DIY',
+    'Sports',
+    'Entertainment',
+    'Yard',
+    'Cleaning',
+    'Cooking',
+    'Crafts',
+    'Pet',
+    'Automotive',
+    'Health',
+    'Household'
+];
+
 module.exports = {
     Table,
     base,
-    BorrowerIssue
+    BorrowerIssue,
+    ThingCategories
 };

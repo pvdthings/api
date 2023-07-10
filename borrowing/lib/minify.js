@@ -5,7 +5,8 @@ const minify = (thing) => {
         categories: thing.fields.Category,
         image: getImage(thing.fields.Image),
         stock: thing.fields.Stock,
-        available: thing.fields.Available
+        available: thing.fields.Available,
+        spanishName: thing.fields.name_es
     }
 }
 

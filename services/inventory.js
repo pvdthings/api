@@ -54,7 +54,7 @@ const fetchInventory = async () => {
 const fetchInventoryItem = async ({ id }) => {
     const records = await inventory.select({
         view: 'api_fetch_things',
-        fields: ['ID', 'Name', 'Active Loans', 'Picture'],
+        fields: ['ID', 'Name', 'Active Loans', 'Total Loans', 'Picture'],
         filterByFormula: `{ID} = '${id}'`,
         pageSize: 100
     }).all();

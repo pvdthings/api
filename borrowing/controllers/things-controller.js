@@ -13,7 +13,7 @@ const getThings = async (_, res) => {
 
     res.send({
         things: records.map(minify),
-        categories: categories
+        categories: ["All", ...categories]
     });
 }
 

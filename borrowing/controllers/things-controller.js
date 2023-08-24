@@ -8,7 +8,8 @@ const table = base('Things');
 const getThings = async (_, res) => {
     const records = await table.select({
         view: 'api_by_popularity',
-        pageSize: 100
+        pageSize: 100,
+        filterByFormula: '{Hidden} = 0'
     }).all();
 
     res.send({

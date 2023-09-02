@@ -24,7 +24,8 @@ const mapThing = (record) => {
         stock: Number(record.get('Stock')),
         available: Number(record.get('Available')),
         images: record.get('Image')?.map(image => image.url) || [],
-        categories: record.get('Category') || []
+        categories: record.get('Category') || [],
+        hidden: Boolean(record.get('Hidden'))
     };
 }
 
@@ -35,6 +36,7 @@ const mapDetailedThing = (record, items) => {
         name_es: record.get('name_es'),
         stock: Number(record.get('Stock')),
         available: Number(record.get('Available')),
+        hidden: Boolean(record.get('Hidden')),
         items
     };
 }
@@ -80,7 +82,7 @@ const createInventoryItems = async (thingId, { quantity, brand, description, est
 const fetchThings = async () => {
     const records = await things.select({
         view: 'api_by_name',
-        fields: ['Name', 'name_es', 'Stock', 'Available', 'Image', 'Category'],
+        fields: ['Name', 'name_es', 'Stock', 'Available', 'Image', 'Category', 'Hidden'],
         pageSize: 100
     }).all();
 
@@ -110,10 +112,11 @@ const createThing = async ({ name, spanishName }) => {
     return record ? mapDetailedThing(record, []) : null;
 }
 
-const updateThing = async (id, { name, spanishName }) => {
+const updateThing = async (id, { name, spanishName, hidden }) => {
     const record = await things.update(id, {
         'Name': name,
-        'name_es': spanishName
+        'name_es': spanishName,
+        'Hidden': hidden
     });
 
     return mapDetailedThing(record);

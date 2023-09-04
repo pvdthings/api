@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const authentication = require('../middleware/supabaseAuthentication');
+const authentication = require('../../middleware/supabaseAuthentication');
 const thingsEndpoint = require('./routes/things');
 const inventoryEndpoint = require('./routes/inventory');
 const borrowersEndpoint = require('./routes/borrowers');

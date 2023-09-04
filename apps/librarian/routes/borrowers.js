@@ -1,4 +1,4 @@
-const { fetchBorrowers, fetchBorrower } = require('../../services/borrowers');
+const { fetchBorrowers, fetchBorrower } = require('../../../services/borrowers');
 
 const express = require('express');
 const router = express.Router();

@@ -33,10 +33,10 @@ router.put('/', async (req, res) => {
 
 router.patch('/:id', async (req, res) => {
     const { id } = req.params;
-    const { name, spanishName, hidden } = req.body;
+    const { name, spanishName, hidden, image } = req.body;
 
     try {
-        res.send(await updateThing(id, { name, spanishName, hidden }));
+        res.send(await updateThing(id, { name, spanishName, hidden, image }));
     } catch (error) {
         console.error(error);
         res.status(500).send({ errors: [error] });

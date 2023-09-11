@@ -1,4 +1,4 @@
-const { recordCashPayment } = require('../../services/payments');
+const { recordCashPayment } = require('../../../services/payments');
 
 const express = require('express');
 const router = express.Router();

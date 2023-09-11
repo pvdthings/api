@@ -1,4 +1,4 @@
-const { fetchCategories, fetchThings, fetchThing, createThing, updateThing } = require('../../services/inventory');
+const { fetchCategories, fetchThings, fetchThing, createThing, updateThing } = require('../../../services/inventory');
 
 const express = require('express');
 const router = express.Router();

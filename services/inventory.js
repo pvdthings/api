@@ -135,6 +135,11 @@ const updateThing = async (id, { name, spanishName, hidden, image }) => {
     return mapDetailedThing(record);
 }
 
+const deleteThingImage = async (id) => {
+    const record = await things.update(id, { 'Image': [] });
+    return mapDetailedThing(record);
+}
+
 module.exports = {
     fetchCategories,
     fetchInventory,
@@ -143,5 +148,6 @@ module.exports = {
     fetchThings,
     fetchThing,
     createThing,
-    updateThing
+    updateThing,
+    deleteThingImage
 };

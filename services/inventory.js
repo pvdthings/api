@@ -37,6 +37,13 @@ const mapDetailedThing = (record, items) => {
         stock: Number(record.get('Stock')),
         available: Number(record.get('Available')),
         hidden: Boolean(record.get('Hidden')),
+        images: record.get('Image')?.map(i => ({
+            id: i.id,
+            url: i.url,
+            width: i.width,
+            height: i.height,
+            type: i.type
+        })) || [],
         items
     };
 }
@@ -112,13 +119,24 @@ const createThing = async ({ name, spanishName }) => {
     return record ? mapDetailedThing(record, []) : null;
 }
 
-const updateThing = async (id, { name, spanishName, hidden }) => {
-    const record = await things.update(id, {
+const updateThing = async (id, { name, spanishName, hidden, image }) => {
+    let updatedFields = {
         'Name': name,
         'name_es': spanishName,
         'Hidden': hidden
-    });
+    };
 
+    if (image?.url) {
+        updatedFields.Image = [{ url: image.url }];
+    }
+
+    const record = await things.update(id, updatedFields);
+
+    return mapDetailedThing(record);
+}
+
+const deleteThingImage = async (id) => {
+    const record = await things.update(id, { 'Image': [] });
     return mapDetailedThing(record);
 }
 
@@ -130,5 +148,6 @@ module.exports = {
     fetchThings,
     fetchThing,
     createThing,
-    updateThing
+    updateThing,
+    deleteThingImage
 };

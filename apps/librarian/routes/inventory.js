@@ -1,4 +1,4 @@
-const { fetchInventory, fetchInventoryItem, createInventoryItems } = require('../../services/inventory');
+const { fetchInventory, fetchInventoryItem, createInventoryItems } = require('../../../services/inventory');
 
 const express = require('express');
 const router = express.Router();

@@ -37,6 +37,7 @@ const mapDetailedThing = (record, items) => {
         stock: Number(record.get('Stock')),
         available: Number(record.get('Available')),
         hidden: Boolean(record.get('Hidden')),
+        categories: record.get('Category') || [],
         images: record.get('Image')?.map(i => ({
             id: i.id,
             url: i.url,

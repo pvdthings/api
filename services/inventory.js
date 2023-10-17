@@ -37,6 +37,7 @@ const mapDetailedThing = (record, items) => {
         stock: Number(record.get('Stock')),
         available: Number(record.get('Available')),
         hidden: Boolean(record.get('Hidden')),
+        categories: record.get('Category') || [],
         images: record.get('Image')?.map(i => ({
             id: i.id,
             url: i.url,
@@ -120,19 +121,25 @@ const createThing = async ({ name, spanishName }) => {
 }
 
 const updateThing = async (id, { name, spanishName, hidden, image }) => {
-    let updatedFields = {
-        'Name': name,
-        'name_es': spanishName,
-        'Hidden': hidden
-    };
+    let updatedFields = {};
+
+    if (name) {
+        updatedFields.name = name;
+    }
+
+    if (spanishName) {
+        updatedFields.name_es = spanishName;
+    }
+
+    if (hidden !== null) {
+        updatedFields.Hidden = hidden;
+    }
 
     if (image?.url) {
         updatedFields.Image = [{ url: image.url }];
     }
 
-    const record = await things.update(id, updatedFields);
-
-    return mapDetailedThing(record);
+    await things.update(id, updatedFields);
 }
 
 const deleteThingImage = async (id) => {

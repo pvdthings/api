@@ -36,7 +36,8 @@ router.patch('/:id', async (req, res) => {
     const { name, spanishName, hidden, image } = req.body;
 
     try {
-        res.send(await updateThing(id, { name, spanishName, hidden, image }));
+        await updateThing(id, { name, spanishName, hidden, image });
+        res.status(204).send();
     } catch (error) {
         console.error(error);
         res.status(500).send({ errors: [error] });

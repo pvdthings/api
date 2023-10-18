@@ -8,7 +8,7 @@ const mapItem = (record) => {
         id: record.id,
         number: Number(record.get('ID')),
         name: record.get('Name')[0],
-        available: record.get('Active Loans') === 0,
+        available: record.get('Active Loans') === 0 && record.get('is_thing_hidden') !== 1,
         brand: record.get('Brand'),
         estimatedValue: record.get('Estimated Value'),
         totalLoans: record.get('Total Loans'),
@@ -37,6 +37,7 @@ const mapDetailedThing = (record, items) => {
         stock: Number(record.get('Stock')),
         available: Number(record.get('Available')),
         hidden: Boolean(record.get('Hidden')),
+        categories: record.get('Category') || [],
         images: record.get('Image')?.map(i => ({
             id: i.id,
             url: i.url,
@@ -53,7 +54,7 @@ const fetchCategories = () => ThingCategories;
 const fetchInventory = async () => {
     const records = await inventory.select({
         view: 'api_fetch_things',
-        fields: ['ID', 'Name', 'Active Loans', 'Picture'],
+        fields: ['ID', 'Name', 'Active Loans', 'Picture', 'is_thing_hidden'],
         pageSize: 100
     }).all();
 
@@ -63,7 +64,7 @@ const fetchInventory = async () => {
 const fetchInventoryItem = async ({ id }) => {
     const records = await inventory.select({
         view: 'api_fetch_things',
-        fields: ['ID', 'Name', 'Active Loans', 'Total Loans', 'Picture'],
+        fields: ['ID', 'Name', 'Active Loans', 'Total Loans', 'Picture', 'is_thing_hidden'],
         filterByFormula: `{ID} = '${id}'`,
         pageSize: 100
     }).all();
@@ -120,19 +121,25 @@ const createThing = async ({ name, spanishName }) => {
 }
 
 const updateThing = async (id, { name, spanishName, hidden, image }) => {
-    let updatedFields = {
-        'Name': name,
-        'name_es': spanishName,
-        'Hidden': hidden
-    };
+    let updatedFields = {};
+
+    if (name) {
+        updatedFields.name = name;
+    }
+
+    if (spanishName) {
+        updatedFields.name_es = spanishName;
+    }
+
+    if (hidden !== null) {
+        updatedFields.Hidden = hidden;
+    }
 
     if (image?.url) {
         updatedFields.Image = [{ url: image.url }];
     }
 
-    const record = await things.update(id, updatedFields);
-
-    return mapDetailedThing(record);
+    await things.update(id, updatedFields);
 }
 
 const deleteThingImage = async (id) => {

@@ -103,7 +103,7 @@ const updateInventoryItem = async (id, { brand, description, estimatedValue, hid
         updatedFields['Estimated Value'] = estimatedValue;
     }
 
-    if (hidden) {
+    if (hidden !== null) {
         updatedFields['Hidden'] = hidden;
     }
 

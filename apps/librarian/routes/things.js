@@ -49,7 +49,7 @@ router.patch('/:id/categories', async (req, res) => {
     const { categories } = req.body;
 
     try {
-        res.send(await updateThingCategories(id, { categories }));
+        await updateThingCategories(id, { categories });
         res.status(204).send();
     } catch (error) {
         console.error(error);

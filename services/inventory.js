@@ -4,11 +4,17 @@ const things = base(Table.Things);
 const inventory = base(Table.Inventory);
 
 const mapItem = (record) => {
+    const hidden = Boolean(record.get('Hidden'));
+    const isThingHidden = record.get('is_thing_hidden') === 1;
+
     return {
         id: record.id,
         number: Number(record.get('ID')),
         name: record.get('Name')[0],
-        available: record.get('Active Loans') === 0 && record.get('is_thing_hidden') !== 1,
+        available: record.get('Active Loans') === 0
+            && !hidden
+            && !isThingHidden,
+        hidden: hidden || isThingHidden,
         brand: record.get('Brand'),
         estimatedValue: record.get('Estimated Value'),
         totalLoans: record.get('Total Loans'),
@@ -54,7 +60,7 @@ const fetchCategories = () => ThingCategories;
 const fetchInventory = async () => {
     const records = await inventory.select({
         view: 'api_fetch_things',
-        fields: ['ID', 'Name', 'Active Loans', 'Picture', 'is_thing_hidden'],
+        fields: ['ID', 'Name', 'Active Loans', 'Picture', 'Hidden', 'is_thing_hidden'],
         pageSize: 100
     }).all();
 
@@ -64,7 +70,7 @@ const fetchInventory = async () => {
 const fetchInventoryItem = async ({ id }) => {
     const records = await inventory.select({
         view: 'api_fetch_things',
-        fields: ['ID', 'Name', 'Active Loans', 'Total Loans', 'Picture', 'is_thing_hidden'],
+        fields: ['ID', 'Name', 'Active Loans', 'Total Loans', 'Picture', 'Hidden', 'is_thing_hidden'],
         filterByFormula: `{ID} = '${id}'`,
         pageSize: 100
     }).all();
@@ -85,6 +91,28 @@ const createInventoryItems = async (thingId, { quantity, brand, description, est
     const records = await inventory.create(inventoryData);
 
     return records.map(mapItem);
+}
+
+const updateInventoryItem = async (id, { brand, description, estimatedValue, hidden }) => {
+    let updatedFields = {};
+
+    if (brand) {
+        updatedFields['Brand'] = brand;
+    }
+
+    if (description) {
+        updatedFields['Description'] = description;
+    }
+
+    if (estimatedValue) {
+        updatedFields['Estimated Value'] = estimatedValue;
+    }
+
+    if (hidden !== null) {
+        updatedFields['Hidden'] = hidden;
+    }
+
+    await inventory.update(id, updatedFields);
 }
 
 const fetchThings = async () => {
@@ -152,6 +180,7 @@ module.exports = {
     fetchInventory,
     fetchInventoryItem,
     createInventoryItems,
+    updateInventoryItem,
     fetchThings,
     fetchThing,
     createThing,

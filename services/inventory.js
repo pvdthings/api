@@ -5,6 +5,7 @@ const inventory = base(Table.Inventory);
 
 const mapItem = (record) => {
     const hidden = Boolean(record.get('Hidden'));
+    const isThingHidden = record.get('is_thing_hidden') === 1;
 
     return {
         id: record.id,
@@ -12,8 +13,8 @@ const mapItem = (record) => {
         name: record.get('Name')[0],
         available: record.get('Active Loans') === 0
             && !hidden
-            && record.get('is_thing_hidden') !== 1,
-        hidden,
+            && !isThingHidden,
+        hidden: hidden || isThingHidden,
         brand: record.get('Brand'),
         estimatedValue: record.get('Estimated Value'),
         totalLoans: record.get('Total Loans'),

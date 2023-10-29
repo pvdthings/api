@@ -13,7 +13,7 @@ const options = {
     },
     servers: [],
   },
-  apis: ["./apps/**/routes/*.js", "./auth/routes/*.js"],
+  apis: ["./docs/**/*.yaml"],
 };
 
 const buildOptions = ({ port }) => {

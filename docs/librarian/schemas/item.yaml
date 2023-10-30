@@ -31,10 +31,3 @@ components:
         totalLoans:
           type: number
           description: The total number of times this item has been borrowed
-      example:
-        id: rec12345
-        number: 123
-        name: Hammer
-        hidden: false
-        available: false
-        totalLoans: 25

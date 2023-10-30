@@ -13,10 +13,10 @@ components:
           type: string
           description: The auto-generated id of the loan
         thing:
-          type: object
+          $ref: '#/components/schemas/Thing'
           description: An object containing the id, name, and number of the lent thing
         borrower:
-          type: object
+          $ref: '#/components/schemas/Borrower'
           description: A Borrower object
         checkedOutDate:
           type: string

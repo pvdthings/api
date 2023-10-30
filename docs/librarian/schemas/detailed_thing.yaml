@@ -45,13 +45,3 @@ components:
           items:
             $ref: '#/components/schemas/Item'
           description: Inventory items that belong to this class of thing
-      example:
-        id: rec12345
-        name: Hammer
-        name_es: Martillo
-        hidden: false
-        stock: 0
-        available: 0
-        categories: [DIY]
-        images: []
-        items: []

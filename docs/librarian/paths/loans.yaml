@@ -10,7 +10,7 @@ paths:
               schema:
                 type: array
                 items:
-                  type: object
+                  $ref: '#/components/schemas/Loan'
     put:
       summary: Creates new loans
       responses:
@@ -25,7 +25,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/Loan'
         '404':
           description: Loan not found
     patch:

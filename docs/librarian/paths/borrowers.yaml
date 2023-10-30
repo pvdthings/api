@@ -10,7 +10,7 @@ paths:
               schema:
                 type: array
                 items:
-                  type: object
+                  $ref: '#/components/schemas/Borrower'
   /lending/borrowers/{id}:
     get:
       summary: Gets a borrower from its unique id
@@ -20,4 +20,4 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/Borrower'

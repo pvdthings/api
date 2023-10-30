@@ -13,7 +13,7 @@ paths:
                   things:
                     type: array
                     items:
-                      type: object
+                      $ref: '#/components/schemas/Catalog Thing'
                   categories:
                     type: array
                     items:

@@ -10,7 +10,7 @@ paths:
               schema:
                 type: array
                 items:
-                  type: object
+                  $ref: '#/components/schemas/Item'
     put:
       summary: Creates new items
       responses:
@@ -25,7 +25,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/Item'
         '404':
           description: Item not found
   /lending/inventory/{id}:

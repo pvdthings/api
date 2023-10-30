@@ -24,6 +24,6 @@ components:
           description: Outstanding issues related to the borrower's membership
       example:
         id: rec12345
-        name: Juan Do
-        contact: { "phone": "4015555555", "email": "" }
+        name: Jane Doe
+        contact: { "phone": "4015555555", "email": "jane@mail.com" }
         issues: ["duesNotPaid"]

@@ -1,0 +1,11 @@
+paths:
+  /lending/payments/{borrowerId}:
+    put:
+      summary: Posts a cash payment for a borrower, given its unique id
+      responses:
+        '201':
+          description: Payment posted
+          content:
+            application/json:
+              schema:
+                type: object

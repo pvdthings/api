@@ -1,0 +1,59 @@
+paths:
+  /lending/things/categories:
+    get:
+      summary: Gets an array of possible thing categories
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /lending/things:
+    get:
+      summary: Gets an array of all things
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+    put:
+      summary: Creates a new thing
+      responses:
+        '200':
+          description: Thing created
+  /lending/things/{id}:
+    get:
+      summary: Gets a thing by its unique id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: Thing not found
+    patch:
+      summary: Updates a thing by its unique id
+      responses:
+        '204':
+          description: Thing updated
+  /lending/things/{id}/categories:
+    patch:
+      summary: Updates the categories of a thing
+      responses:
+        '204':
+          description: Thing categories updated
+  /lending/things/{id}/image:
+    delete:
+      summary: Deletes the image of a thing
+      responses:
+        '200':
+          description: Thing image deleted

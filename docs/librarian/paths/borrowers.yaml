@@ -1,0 +1,23 @@
+paths:
+  /lending/borrowers:
+    get:
+      summary: Gets an array of all borrowers
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /lending/borrowers/{id}:
+    get:
+      summary: Gets a borrower from its unique id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object

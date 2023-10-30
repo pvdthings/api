@@ -1,0 +1,36 @@
+paths:
+  /lending/inventory:
+    get:
+      summary: Gets an array of all items
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+    put:
+      summary: Creates new items
+      responses:
+        '200':
+          description: Items created
+  /lending/inventory/{number}:
+    get:
+      summary: Gets an item from its unique lending number
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: Item not found
+  /lending/inventory/{id}:
+    patch:
+      summary: Updates an item from its unique id
+      responses:
+        '204':
+          description: Item updated

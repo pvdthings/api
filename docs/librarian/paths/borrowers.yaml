@@ -2,6 +2,9 @@ paths:
   /lending/borrowers:
     get:
       summary: Gets an array of all borrowers
+      parameters:
+        - $ref: '#/components/parameters/SupabaseAccessToken'
+        - $ref: '#/components/parameters/SupabaseRefreshToken'
       responses:
         '200':
           description: OK
@@ -14,6 +17,9 @@ paths:
   /lending/borrowers/{id}:
     get:
       summary: Gets a borrower from its unique id
+      parameters:
+        - $ref: '#/components/parameters/SupabaseAccessToken'
+        - $ref: '#/components/parameters/SupabaseRefreshToken'
       responses:
         '200':
           description: OK

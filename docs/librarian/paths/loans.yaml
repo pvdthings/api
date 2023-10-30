@@ -2,6 +2,9 @@ paths:
   /lending/loans:
     get:
       summary: Gets an array of all loans
+      parameters:
+        - $ref: '#/components/parameters/SupabaseAccessToken'
+        - $ref: '#/components/parameters/SupabaseRefreshToken'
       responses:
         '200':
           description: OK
@@ -13,12 +16,18 @@ paths:
                   $ref: '#/components/schemas/Loan'
     put:
       summary: Creates new loans
+      parameters:
+        - $ref: '#/components/parameters/SupabaseAccessToken'
+        - $ref: '#/components/parameters/SupabaseRefreshToken'
       responses:
         '201':
           description: Loans created
   /lending/loans/{loanId}/{thingId}:
     get:
       summary: Gets a loan by its unique id and the thing's unique id
+      parameters:
+        - $ref: '#/components/parameters/SupabaseAccessToken'
+        - $ref: '#/components/parameters/SupabaseRefreshToken'
       responses:
         '200':
           description: OK
@@ -30,6 +39,9 @@ paths:
           description: Loan not found
     patch:
       summary: Updates a loan by its unique id and the thing's unique id
+      parameters:
+        - $ref: '#/components/parameters/SupabaseAccessToken'
+        - $ref: '#/components/parameters/SupabaseRefreshToken'
       responses:
         '200':
           description: Loan updated

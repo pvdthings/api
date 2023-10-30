@@ -2,6 +2,9 @@ paths:
   /lending/payments/{borrowerId}:
     put:
       summary: Posts a cash payment for a borrower, given its unique id
+      parameters:
+        - $ref: '#/components/parameters/SupabaseAccessToken'
+        - $ref: '#/components/parameters/SupabaseRefreshToken'
       responses:
         '201':
           description: Payment posted

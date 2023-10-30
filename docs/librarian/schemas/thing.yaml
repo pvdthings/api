@@ -8,6 +8,7 @@ components:
         - hidden
         - stock
         - available
+        - images
       properties:
         id:
           type: string
@@ -27,6 +28,11 @@ components:
         available:
           type: number
           description: The number of this thing available to borrow
+        images:
+          type: array
+          items:
+            type: string
+          description: URLs pointing to images of this thing
       example:
         id: rec12345
         name: Hammer

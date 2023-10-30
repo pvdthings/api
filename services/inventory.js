@@ -17,6 +17,7 @@ const mapItem = (record) => {
         hidden: hidden || isThingHidden,
         brand: record.get('Brand'),
         estimatedValue: record.get('Estimated Value'),
+        condition: record.get('Condition'),
         totalLoans: record.get('Total Loans'),
         images: record.get('Picture')?.map(image => image.url) || []
     };
@@ -60,7 +61,7 @@ const fetchCategories = () => ThingCategories;
 const fetchInventory = async () => {
     const records = await inventory.select({
         view: 'api_fetch_things',
-        fields: ['ID', 'Name', 'Active Loans', 'Picture', 'Hidden', 'is_thing_hidden'],
+        fields: ['ID', 'Name', 'Active Loans', 'Picture', 'Hidden', 'Condition', 'is_thing_hidden'],
         pageSize: 100
     }).all();
 
@@ -70,7 +71,7 @@ const fetchInventory = async () => {
 const fetchInventoryItem = async ({ id }) => {
     const records = await inventory.select({
         view: 'api_fetch_things',
-        fields: ['ID', 'Name', 'Active Loans', 'Total Loans', 'Picture', 'Hidden', 'is_thing_hidden'],
+        fields: ['ID', 'Name', 'Active Loans', 'Total Loans', 'Picture', 'Hidden', 'Condition', 'is_thing_hidden'],
         filterByFormula: `{ID} = '${id}'`,
         pageSize: 100
     }).all();
@@ -93,7 +94,7 @@ const createInventoryItems = async (thingId, { quantity, brand, description, est
     return records.map(mapItem);
 }
 
-const updateInventoryItem = async (id, { brand, description, estimatedValue, hidden }) => {
+const updateInventoryItem = async (id, { brand, description, estimatedValue, hidden, condition }) => {
     let updatedFields = {};
 
     if (brand) {
@@ -110,6 +111,10 @@ const updateInventoryItem = async (id, { brand, description, estimatedValue, hid
 
     if (hidden !== null) {
         updatedFields['Hidden'] = hidden;
+    }
+
+    if (condition !== null) {
+        updatedFields['Condition'] = condition;
     }
 
     await inventory.update(id, updatedFields);

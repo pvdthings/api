@@ -1,0 +1,33 @@
+components:
+  schemas:
+    Item:
+      type: object
+      required:
+        - id
+        - number
+        - name
+        - hidden
+        - available
+        - totalLoans
+      properties:
+        id:
+          type: string
+          description: The auto-generated id of the item
+        name:
+          type: string
+          description: The name of the thing associated with this item
+        number:
+          type: integer
+          description: The auto-generated number of this item, used for lending
+        brand:
+          type: string
+          description: The manufacturer or brand name of this item
+        hidden:
+          type: boolean
+          description: Whether this item is not allowed for lending
+        available:
+          type: boolean
+          description: False if this item is currently checked out
+        totalLoans:
+          type: number
+          description: The total number of times this item has been borrowed

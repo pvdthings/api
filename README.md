@@ -1,31 +1,31 @@
 # PVD Things API
 
-## APIs
-- things
-- lending / things
-- lending / inventory
-- lending / borrowers
-- lending / loans
-- lending / payments
-
 ## Environment variables
-In order for the **Things API** to work, you'll need to set 3 environment variables in a `.env` file at the root of the project folder:
+You'll need to set these environment variables in a `.env` file at the root of the project folder:
 ```js
-NODE_ENV=development
-API_KEY=[value]
+NODE_ENV=development // or 'production'
+
 AIRTABLE_KEY=[value]
 AIRTABLE_BASE_ID=[value]
+
 SUPABASE_URL=[value]
 SUPABASE_PUB_ANON_KEY=[value]
+
+// Determines which Discord accounts are allowed to authenticate with the API
 DISCORD_WHITELIST="mail@email.com another@email.com"
 ```
 
-## Run the server
-```bash
+## Local Development
+
+### Run the server
+```js
 npm run install // on first run
 npm run start
 ```
 The server will start on port `8088`.
 
-## Local Development
-When running locally, no authentication is needed for the `lending` API. In production environments, these endpoints require a token provided by Supabase Authentication (via Discord).
+When running locally, no authentication is needed for the `lending` API. In production environments, these endpoints require tokens provided by Supabase Authentication (via Discord).
+
+### Documentation
+
+**Swagger Docs** are hosted at [http://localhost:8088/docs]().

@@ -51,7 +51,17 @@ const fetchBorrower = async ({ id }) => {
     return mapBorrower(record);
 }
 
+const updateBorrower = async (id, { email, phone }) => {
+    let updatedFields = {};
+
+    if (email !== undefined) updatedFields['Email'] = email;
+    if (phone !== undefined) updatedFields['Phone'] = phone;
+
+    await borrowers.update(id, updatedFields);
+}
+
 module.exports = {
     fetchBorrowers,
-    fetchBorrower
+    fetchBorrower,
+    updateBorrower
 };

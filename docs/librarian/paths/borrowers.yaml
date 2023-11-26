@@ -27,3 +27,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Borrower'
+  /lending/borrowers/{id}/contact:
+    patch:
+      summary: Updates a borrower's contact details from its unique id
+      parameters:
+        - $ref: '#/components/parameters/SupabaseAccessToken'
+        - $ref: '#/components/parameters/SupabaseRefreshToken'
+      responses:
+        '204':
+          description: Updates applied

@@ -6,19 +6,27 @@ const mapLoan = (loan, thingId) => {
     const thingNames = loan.get('Borrowed Things');
     const thingIndex = loan.get('Things').indexOf(thingId);
     const thingNumber = loan.get('thing_numbers')[thingIndex];
+    const email = loan.get('Borrower Email');
+    const phone = loan.get('Borrower Phone');
 
     return {
         id: loan.id,
         number: Number(loan.get('Loan')),
         borrower: {
             id: loan.get('Borrower')[0],
-            name: loan.get('Borrower Name')[0]
+            name: loan.get('Borrower Name')[0],
+            contact: {
+                email: email ? email[0] : undefined,
+                phone: phone ? phone[0] : undefined
+            }
         },
         thing: {
             id: thingId,
             number: Number(thingNumber),
             name: thingNames[thingIndex]
         },
+        notes: loan.get('Notes'),
+        extensions: loan.get('extensions_count'),
         checkedOutDate: loan.get('Checked Out'),
         checkedInDate: loan.get('checked_in_date'),
         dueBackDate: loan.get('Due Back')
@@ -29,7 +37,21 @@ const fetchLoans = async ({ includeClosed }) => {
     const view = includeClosed ? 'api_all_loans' : 'api_open_loans';
     const results = await loans.select({
         view: view,
-        fields: ['Loan', 'Borrower', 'Borrower Name', 'Things', 'Borrowed Things', 'Returned Things', 'Checked Out', 'checked_in_date', 'Due Back', 'thing_numbers'],
+        fields: [
+            'Loan',
+            'Borrower',
+            'Borrower Name',
+            'Borrower Email',
+            'Borrower Phone',
+            'Notes',
+            'Things',
+            'Borrowed Things',
+            'Returned Things',
+            'Checked Out',
+            'checked_in_date',
+            'Due Back',
+            'thing_numbers'
+        ],
         pageSize: 100
     }).all();
 
@@ -74,7 +96,8 @@ const updateLoan = async ({
     loanId,
     thingId,
     dueBackDate,
-    checkedInDate // <- We can't use the value until we shift to the [1 Loan]:[1 Thing] paradigm
+    checkedInDate, // <- We can't use the value until we shift to the [1 Loan]:[1 Thing] paradigm
+    notes
 }) => {
     const loan = await loans.find(loanId);
 
@@ -82,6 +105,10 @@ const updateLoan = async ({
     
     if (dueBackDate && dueBackDate !== '') {
         fields["Due Back"] = dueBackDate;
+    }
+
+    if (notes != undefined) {
+        fields["Notes"] = notes;
     }
 
     const returnedThings = loan.get("Returned Things") || [];

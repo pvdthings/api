@@ -28,13 +28,16 @@ router.put('/', async (req, res) => {
 });
 
 router.patch('/:loanId/:thingId', async (req, res) => {
+    const { notes, dueBackDate, checkedInDate } = req.body;
     try {
         await updateLoan({
             loanId: req.params.loanId,
             thingId: req.params.thingId,
-            ...req.body
+            notes,
+            dueBackDate,
+            checkedInDate
         });
-        res.status(200).send();
+        res.status(204).send();
     } catch (error) {
         console.error(error);
         res.status(500).send({ error });

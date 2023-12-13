@@ -43,5 +43,5 @@ paths:
         - $ref: '#/components/parameters/SupabaseAccessToken'
         - $ref: '#/components/parameters/SupabaseRefreshToken'
       responses:
-        '200':
+        '204':
           description: Loan updated

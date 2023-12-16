@@ -1,6 +1,6 @@
 {
   "name": "pvdthings-api",
-  "version": "1.13.0",
+  "version": "1.13.1",
   "description": "",
   "main": "server.js",
   "scripts": {
@@ -19,7 +19,7 @@
   "homepage": "https://github.com/pvdthings/api#readme",
   "dependencies": {
     "@supabase/supabase-js": "^2.10.0",
-    "airtable": "^0.10.1",
+    "airtable": "^0.12.2",
     "body-parser": "^1.19.0",
     "dotenv": "^16.0.3",
     "express": "^4.17.1",

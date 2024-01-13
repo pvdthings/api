@@ -3,5 +3,5 @@ const Loans = require('./loans');
 
 module.exports = {
   mapLoan,
-  Loans
+  ...Loans
 };

@@ -200,6 +200,10 @@ const updateThing = async (id, { name, spanishName, hidden, image }) => {
     await things.update(id, updatedFields);
 }
 
+const deleteThing = async (id) => {
+    await things.destroy(id);
+}
+
 const updateThingCategories = async (id, { categories }) => {
     await things.update(id, { 'Category': categories });
 }
@@ -219,6 +223,7 @@ module.exports = {
     fetchThing,
     createThing,
     updateThing,
+    deleteThing,
     updateThingCategories,
     deleteThingImage
 };

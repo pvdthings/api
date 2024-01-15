@@ -1,4 +1,4 @@
-const { fetchCategories, fetchThings, fetchThing, createThing, updateThing, deleteThingImage, updateThingCategories } = require('../../../services/inventory');
+const { fetchCategories, fetchThings, fetchThing, createThing, updateThing, deleteThingImage, updateThingCategories, deleteThing } = require('../../../services/inventory');
 
 const express = require('express');
 const router = express.Router();
@@ -54,6 +54,18 @@ router.patch('/:id/categories', async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).send();
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        await deleteThing(id);
+        res.status(204).send();
+    } catch (error) {
+        console.error(error);
+        res.status(error.status).send({ errors: [error] });
     }
 });
 

@@ -60,6 +60,14 @@ paths:
       responses:
         '204':
           description: Thing updated
+    delete:
+      summary: Deletes a thing by its unique id
+      parameters:
+        - $ref: '#/components/parameters/SupabaseAccessToken'
+        - $ref: '#/components/parameters/SupabaseRefreshToken'
+      responses:
+        '204':
+          description: Thing deleted
   /lending/things/{id}/categories:
     patch:
       summary: Updates the categories of a thing

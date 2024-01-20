@@ -182,19 +182,19 @@ const updateThing = async (id, { name, spanishName, hidden, image }) => {
     let updatedFields = {};
 
     if (name) {
-        updatedFields.name = name;
+        updatedFields['Name'] = name;
     }
 
     if (spanishName) {
-        updatedFields.name_es = spanishName;
+        updatedFields['name_es'] = spanishName;
     }
 
     if (hidden !== null) {
-        updatedFields.Hidden = hidden;
+        updatedFields['Hidden'] = hidden;
     }
 
     if (image?.url) {
-        updatedFields.Image = [{ url: image.url }];
+        updatedFields['Image'] = [{ url: image.url }];
     }
 
     await things.update(id, updatedFields);

@@ -7,8 +7,8 @@ router.post('/loan-reminder', async (req, res) => {
   const { loanNumber } = req.body;
 
   try {
-    const success = await sendLoanReminder({ loanNumber });
-    res.status(202).send({ success });
+    await sendLoanReminder({ loanNumber });
+    res.status(204).send();
   } catch (error) {
     console.error(error);
     res.status(error.status).send({ errors: [error] })

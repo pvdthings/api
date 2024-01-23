@@ -6,7 +6,7 @@ paths:
         - $ref: '#/components/parameters/SupabaseAccessToken'
         - $ref: '#/components/parameters/SupabaseRefreshToken'
       responses:
-        '202':
+        '204':
           description: Message sent
           content:
             application/json:

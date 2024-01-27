@@ -29,7 +29,8 @@ const mapLoan = (loan, thingId) => {
         extensions: loan.get('extensions_count'),
         checkedOutDate: loan.get('Checked Out'),
         checkedInDate: loan.get('checked_in_date'),
-        dueBackDate: loan.get('Due Back')
+        dueBackDate: loan.get('Due Back'),
+        remindersSent: Number(loan.get('reminders_sent')) || 0
     };
 };
 

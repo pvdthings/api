@@ -13,6 +13,9 @@ SUPABASE_PUB_ANON_KEY=[value]
 
 // Determines which Discord accounts are allowed to authenticate with the API
 DISCORD_WHITELIST="mail@email.com another@email.com"
+
+// Webhook URL used for sending loan reminder messages
+LOAN_REMINDER_WEBHOOK_URL=[value]
 ```
 
 ## Local Development

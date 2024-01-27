@@ -30,3 +30,6 @@ components:
           type: string
           format: timestamp
           description: The date of when the thing is due back
+        remindersSent:
+          type: number
+          description: The number of reminder emails sent to the borrower

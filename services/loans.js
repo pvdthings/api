@@ -29,7 +29,8 @@ const mapLoan = (loan, thingId) => {
         extensions: loan.get('extensions_count'),
         checkedOutDate: loan.get('Checked Out'),
         checkedInDate: loan.get('checked_in_date'),
-        dueBackDate: loan.get('Due Back')
+        dueBackDate: loan.get('Due Back'),
+        remindersSent: Number(loan.get('reminders_sent')) || 0
     };
 };
 
@@ -50,7 +51,8 @@ const fetchLoans = async ({ includeClosed }) => {
             'Checked Out',
             'checked_in_date',
             'Due Back',
-            'thing_numbers'
+            'thing_numbers',
+            'reminders_sent'
         ],
         pageSize: 100
     }).all();
@@ -86,7 +88,7 @@ const createLoan = async ({
         "Due Back": dueBackDate,
         "Status": "Active",
         "Returned Things": [],
-        "Notes": notes || "This loan was opened by the PVD Things API."
+        "Notes": notes
     });
 
     return loan.id;

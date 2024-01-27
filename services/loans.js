@@ -51,7 +51,8 @@ const fetchLoans = async ({ includeClosed }) => {
             'Checked Out',
             'checked_in_date',
             'Due Back',
-            'thing_numbers'
+            'thing_numbers',
+            'reminders_sent'
         ],
         pageSize: 100
     }).all();
@@ -87,7 +88,7 @@ const createLoan = async ({
         "Due Back": dueBackDate,
         "Status": "Active",
         "Returned Things": [],
-        "Notes": notes || "This loan was opened by the PVD Things API."
+        "Notes": notes
     });
 
     return loan.id;

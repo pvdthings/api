@@ -10,8 +10,10 @@ const bodyParser = require('body-parser');
 const auth = require('./auth');
 const things = require('./apps/catalog/routes/things');
 const lending = require('./apps/librarian');
+const apiKeyMiddleware = require('./middleware/apiKey');
 
 app.use(bodyParser.json());
+app.use(apiKeyMiddleware);
 
 app.all('*', (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");

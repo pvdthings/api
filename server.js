@@ -10,12 +10,14 @@ const bodyParser = require('body-parser');
 const auth = require('./auth');
 const things = require('./apps/catalog/routes/things');
 const lending = require('./apps/librarian');
+const apiKeyMiddleware = require('./middleware/apiKey');
 
+app.use(apiKeyMiddleware);
 app.use(bodyParser.json());
 
 app.all('*', (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, supabase-access-token, supabase-refresh-token");
+    res.header("Access-Control-Allow-Headers", "Origin, x-api-key, X-Requested-With, Content-Type, Accept, supabase-access-token, supabase-refresh-token");
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS")
     res.header("Access-Control-Allow-Credentials", "true");
     res.header("Access-Control-Allow-Private-Network", "true");

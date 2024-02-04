@@ -5,6 +5,8 @@ You'll need to set these environment variables in a `.env` file at the root of t
 ```js
 NODE_ENV=development // or 'production'
 
+API_KEY=[value]
+
 AIRTABLE_KEY=[value]
 AIRTABLE_BASE_ID=[value]
 

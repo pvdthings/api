@@ -1,4 +1,4 @@
-const { fetchInventory, fetchInventoryItem, createInventoryItems, updateInventoryItem } = require('../../../services/inventory');
+const { fetchInventory, fetchInventoryItem, createInventoryItems, updateInventoryItem, deleteInventoryItem } = require('../../../services/inventory');
 
 const express = require('express');
 const router = express.Router();
@@ -35,6 +35,18 @@ router.patch('/:id', async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).send();
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        await deleteInventoryItem(id);
+        res.status(204).send();
+    } catch (error) {
+        console.error(error);
+        res.status(error.status || 500).send();
     }
 });
 

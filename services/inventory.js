@@ -145,6 +145,10 @@ const updateInventoryItem = async (id, { brand, description, estimatedValue, hid
     await inventory.update(id, updatedFields);
 }
 
+const deleteInventoryItem = async (id) => {
+    await inventory.destroy(id);
+}
+
 const fetchThings = async () => {
     const records = await things.select({
         view: 'api_by_name',
@@ -219,6 +223,7 @@ module.exports = {
     fetchInventoryItem,
     createInventoryItems,
     updateInventoryItem,
+    deleteInventoryItem,
     fetchThings,
     fetchThing,
     createThing,

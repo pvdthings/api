@@ -1,4 +1,5 @@
-const { fetchLoans, fetchLoan, createLoan, updateLoan } = require('../../../services/loans');
+const { fetchLoans, fetchLoan, createLoan, updateLoan, updateDueDates } = require('../../../services/loans');
+const authorizeAdminUser = require('../../../middleware/adminAuthorization');
 
 const express = require('express');
 const router = express.Router();
@@ -41,6 +42,21 @@ router.patch('/:loanId/:thingId', async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).send({ error });
+    }
+});
+
+router.head('/extend', authorizeAdminUser, async (req, res) => {
+    res.status(204).send();
+});
+
+router.post('/extend', authorizeAdminUser, async (req, res) => {
+    const { dueDate } = req.body;
+    try {
+        const success = await updateDueDates({ dueDate });
+        res.status(200).send({ success });
+    } catch (error) {
+        console.error(error);
+        res.status(error.status || 500).send({ error });
     }
 });
 

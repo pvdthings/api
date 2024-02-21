@@ -3,6 +3,12 @@ const isWhitelisted = (email) => {
     return whitelist.includes(email);
 };
 
+const isAdmin = (email) => {
+    const whitelist = process.env.ADMIN_WHITELIST.split(' ');
+    return whitelist.includes(email);
+};
+
 module.exports = {
-    isWhitelisted
+    isWhitelisted,
+    isAdmin
 };

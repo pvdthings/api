@@ -45,3 +45,30 @@ paths:
       responses:
         '204':
           description: Loan updated
+  /lending/loans/extend:
+    head:
+      summary: Determines whether the authenticated user is authorized to use this endpoint
+      parameters:
+        - $ref: '#/components/parameters/SupabaseAccessToken'
+        - $ref: '#/components/parameters/SupabaseRefreshToken'
+      responses:
+        '204':
+          description: Authorized
+        '403':
+          description: Not Authorized
+    post:
+      summary: Changes all active loan due dates
+      parameters:
+        - $ref: '#/components/parameters/SupabaseAccessToken'
+        - $ref: '#/components/parameters/SupabaseRefreshToken'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: True if the action ran successfully

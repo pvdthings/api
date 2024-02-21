@@ -21,6 +21,9 @@ ADMIN_WHITELIST="alice@email.com"
 
 // Webhook URL used for sending loan reminder messages
 LOAN_REMINDER_WEBHOOK_URL=[value]
+
+// Webhook URL used for updating loan due dates
+UPDATE_DUE_DATES_WEBHOOK_URL=[value]
 ```
 
 ## Local Development

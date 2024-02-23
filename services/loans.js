@@ -1,4 +1,5 @@
 const { base, Table } = require('../db');
+const { postWebhook } = require('./webhooks');
 
 const loans = base(Table.Loans);
 
@@ -131,9 +132,17 @@ const updateLoan = async ({
     ]);
 };
 
+const updateDueDates = async ({ dueDate }) => {
+    const UPDATE_DUE_DATES_WEBHOOK_URL = process.env.UPDATE_DUE_DATES_WEBHOOK_URL;
+    const response = await postWebhook(UPDATE_DUE_DATES_WEBHOOK_URL, { dueDate });
+    const { success } = await response.json();
+    return success;
+};
+
 module.exports = {
     fetchLoans,
     fetchLoan,
     createLoan,
-    updateLoan
+    updateLoan,
+    updateDueDates
 };

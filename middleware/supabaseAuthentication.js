@@ -29,7 +29,7 @@ const authenticateToken = async (req, res, next) => {
     const user = await supabase.auth.getUser();
 
     if (session.data.session && isWhitelisted(user.data.user.email)) {
-        res.locals.user = user;
+        res.locals.user = user.data.user;
         next();
     } else {
         console.error(`Invalid Token:\t ${session.error || 'NO ENTRY'}`)

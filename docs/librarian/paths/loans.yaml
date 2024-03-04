@@ -34,7 +34,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Loan'
+                $ref: '#/components/schemas/Detailed Loan'
         '404':
           description: Loan not found
     patch:

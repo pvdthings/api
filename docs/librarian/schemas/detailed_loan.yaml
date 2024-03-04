@@ -1,6 +1,6 @@
 components:
   schemas:
-    Loan:
+    Detailed Loan:
       type: object
       required:
         - id
@@ -30,3 +30,9 @@ components:
           type: string
           format: timestamp
           description: The date of when the thing is due back
+        notes:
+          type: string
+          description: Notes attached to the loan
+        remindersSent:
+          type: number
+          description: The number of reminder emails sent to the borrower

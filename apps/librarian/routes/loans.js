@@ -5,16 +5,27 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-    const includeClosedLoans = req.query['closed'];
-    res.send(await fetchLoans({ includeClosed: includeClosedLoans }));
+    try {
+        const includeClosedLoans = req.query['closed'];
+        const loans = await fetchLoans({ includeClosed: includeClosedLoans });
+        res.status(200).send(loans);
+    } catch (error) {
+        console.error(error);
+        res.status(error.status || 500).send();
+    }
 });
 
-router.get('/:loanId/:thingId', async (req, res) => {
-    const loan = await fetchLoan({ loanId: req.params.loanId, thingId: req.params.thingId });
-    if (loan) {
-        res.send(loan);
-    } else {
-        res.status(404).send();
+router.get('/:loanId/:itemId', async (req, res) => {
+    try {
+        const loan = await fetchLoan({ loanId: req.params.loanId, itemId: req.params.itemId });
+        if (loan) {
+            res.status(200).send(loan);
+        } else {
+            res.status(404).send();
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(error.status || 500).send();
     }
 });
 

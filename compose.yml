@@ -4,7 +4,10 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-    ports:
-      - '${PORT}:${PORT}'
+      target: base
+    container_name: api
     env_file:
       - ./.env
+    image: api
+    ports:
+      - '${PORT}:${PORT}'

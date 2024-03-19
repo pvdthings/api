@@ -119,7 +119,7 @@ const createInventoryItems = async (thingId, { quantity, brand, description, est
     return records.map(mapItem);
 }
 
-const updateInventoryItem = async (id, { brand, description, estimatedValue, hidden, condition }) => {
+const updateInventoryItem = async (id, { brand, description, estimatedValue, hidden, condition, image }) => {
     let updatedFields = {};
 
     if (brand) {
@@ -140,6 +140,10 @@ const updateInventoryItem = async (id, { brand, description, estimatedValue, hid
 
     if (condition !== null) {
         updatedFields['Condition'] = condition;
+    }
+
+    if (image !== null) {
+        updatedFields['Picture'] = image.url ? [{ url: image.url }] : [];
     }
 
     await inventory.update(id, updatedFields);

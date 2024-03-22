@@ -27,10 +27,10 @@ router.put('/', async (req, res) => {
 });
 
 router.patch('/:id', async (req, res) => {
-    const { brand, description, estimatedValue, hidden, condition } = req.body;
+    const { brand, description, estimatedValue, hidden, condition, image } = req.body;
 
     try {
-        await updateInventoryItem(req.params.id, { brand, description, estimatedValue, hidden, condition });
+        await updateInventoryItem(req.params.id, { brand, description, estimatedValue, hidden, condition, image });
         res.status(204).send();
     } catch (error) {
         console.error(error);

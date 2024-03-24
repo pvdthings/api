@@ -104,13 +104,16 @@ const fetchInventoryItem = async ({ id }) => {
     return mapItem(records[0]);
 }
 
-const createInventoryItems = async (thingId, { quantity, brand, description, estimatedValue }) => {
+const createInventoryItems = async (thingId, { quantity, brand, description, estimatedValue, hidden, condition, image }) => {
     const inventoryData = Array.from(Array(Number(quantity))).map(() => ({
         fields: {
             'Thing': [thingId],
             'Brand': brand,
+            'Condition': condition,
             'Description': description,
-            'Estimated Value': Number(estimatedValue)
+            'Estimated Value': Number(estimatedValue),
+            'Hidden': hidden,
+            'Picture': image.url ? [{ url: image.url }] : []
         }
     }));
 

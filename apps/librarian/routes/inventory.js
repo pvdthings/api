@@ -16,13 +16,13 @@ router.get('/:id', async (req, res) => {
 });
 
 router.put('/', async (req, res) => {
-    const { thingId, quantity, brand, description, estimatedValue } = req.body;
+    const { thingId, quantity, brand, condition, description, estimatedValue, hidden, image } = req.body;
 
     try {
-        res.send(await createInventoryItems(thingId, { quantity, brand, description, estimatedValue }));
+        res.send(await createInventoryItems(thingId, { quantity, brand, condition, description, estimatedValue, hidden, image }));
     } catch (error) {
         console.error(error);
-        res.status(500).send({ errors: [error] });
+        res.status(error.status || 500).send({ errors: [error] });
     }
 });
 

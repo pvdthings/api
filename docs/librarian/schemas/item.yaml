@@ -35,6 +35,9 @@ components:
         hidden:
           type: boolean
           description: Whether this item is not allowed for lending
+        eyeProtection:
+          type: boolean
+          description: Whether eye protection is required for lending
         available:
           type: boolean
           description: False if this item is currently checked out

@@ -1,22 +1,32 @@
-const { fetchCategories, fetchThings, fetchThing, createThing, updateThing, deleteThingImage, updateThingCategories, deleteThing } = require('../../../services/inventory');
+const { fetchCategories, fetchThings, fetchThing, createThing, updateThing, deleteThingImage, updateThingCategories, deleteThing } = require('../../../services/things');
 
 const express = require('express');
 const router = express.Router();
 
 router.get('/categories', async (req, res) => {
-    res.send(fetchCategories());
+    try {
+        res.send(fetchCategories());
+    } catch (error) {
+        console.error(error);
+        res.status(error.status || 500).send({ errors: [error] });
+    }
 });
 
 router.get('/', async (req, res) => {
-    res.send(await fetchThings());
+    try {
+        res.send(await fetchThings());
+    } catch (error) {
+        console.error(error);
+        res.status(error.status || 500).send({ errors: [error] });
+    }
 });
 
 router.get('/:id', async (req, res) => {
     try {
-        res.send(await fetchThing({ id: req.params.id }));
+        res.send(await fetchThing(req.params.id));
     } catch (error) {
         console.error(error);
-        res.status(404).send({ errors: [error] });
+        res.status(error.status || 500).send({ errors: [error] });
     }
 });
 
@@ -27,7 +37,7 @@ router.put('/', async (req, res) => {
         res.send(await createThing({ name, spanishName, eyeProtection, hidden, image }));
     } catch (error) {
         console.error(error);
-        res.status(500).send({ errors: [error] });
+        res.status(error.status || 500).send({ errors: [error] });
     }
 });
 
@@ -40,7 +50,7 @@ router.patch('/:id', async (req, res) => {
         res.status(204).send();
     } catch (error) {
         console.error(error);
-        res.status(error.status).send({ errors: [error] });
+        res.status(error.status || 500).send({ errors: [error] });
     }
 });
 
@@ -53,7 +63,7 @@ router.patch('/:id/categories', async (req, res) => {
         res.status(204).send();
     } catch (error) {
         console.error(error);
-        res.status(500).send();
+        res.status(error.status || 500).send({ errors: [error] });
     }
 });
 
@@ -65,7 +75,7 @@ router.delete('/:id', async (req, res) => {
         res.status(204).send();
     } catch (error) {
         console.error(error);
-        res.status(error.status).send({ errors: [error] });
+        res.status(error.status || 500).send({ errors: [error] });
     }
 });
 
@@ -76,7 +86,7 @@ router.delete('/:id/image', async (req, res) => {
         res.send(await deleteThingImage(id));
     } catch (error) {
         console.error(error);
-        res.status(500).send({ errors: [error] });
+        res.status(error.status || 500).send({ errors: [error] });
     }
 });
 

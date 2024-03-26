@@ -18,6 +18,7 @@ const mapItem = (record) => {
         brand: record.get('Brand'),
         description: record.get('Description'),
         estimatedValue: record.get('Estimated Value'),
+        eyeProtection: Boolean(record.get('Eye Protection')),
         condition: record.get('Condition'),
         totalLoans: record.get('Total Loans'),
         images: record.get('Picture')?.map(image => image.url) || []
@@ -46,6 +47,7 @@ const mapDetailedThing = (record, items) => {
         available: Number(record.get('Available')),
         hidden: Boolean(record.get('Hidden')),
         categories: record.get('Category') || [],
+        eyeProtection: Boolean(record.get('Eye Protection')),
         images: record.get('Image')?.map(i => ({
             id: i.id,
             url: i.url,
@@ -67,6 +69,7 @@ const fetchInventory = async () => {
             'Name', 
             'Brand',
             'Description',
+            'Eye Protection',
             'Active Loans', 
             'Total Loans',
             'Picture', 
@@ -89,6 +92,7 @@ const fetchInventoryItem = async ({ id }) => {
             'Name', 
             'Brand',
             'Description',
+            'Eye Protection',
             'Active Loans', 
             'Total Loans',
             'Picture', 
@@ -113,7 +117,7 @@ const createInventoryItems = async (thingId, { quantity, brand, description, est
             'Description': description,
             'Estimated Value': Number(estimatedValue),
             'Hidden': hidden,
-            'Picture': image.url ? [{ url: image.url }] : []
+            'Picture': image?.url ? [{ url: image.url }] : []
         }
     }));
 
@@ -180,16 +184,19 @@ const fetchThing = async ({ id }) => {
     return record ? mapDetailedThing(record, items) : null;
 }
 
-const createThing = async ({ name, spanishName }) => {
+const createThing = async ({ name, spanishName, hidden, image, eyeProtection }) => {
     const record = await things.create({
         'Name': name,
-        name_es: spanishName
+        'name_es': spanishName,
+        'Eye Protection': eyeProtection,
+        'Hidden': hidden,
+        'Image': image?.url ? [{ url: image.url }] : []
     });
 
     return record ? mapDetailedThing(record, []) : null;
 }
 
-const updateThing = async (id, { name, spanishName, hidden, image }) => {
+const updateThing = async (id, { name, spanishName, hidden, image, eyeProtection }) => {
     let updatedFields = {};
 
     if (name) {
@@ -206,6 +213,10 @@ const updateThing = async (id, { name, spanishName, hidden, image }) => {
 
     if (image?.url) {
         updatedFields['Image'] = [{ url: image.url }];
+    }
+
+    if (eyeProtection !== null) {
+        updatedFields['Eye Protection'] = eyeProtection;
     }
 
     await things.update(id, updatedFields);

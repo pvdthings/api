@@ -22,6 +22,9 @@ components:
         hidden:
           type: boolean
           description: Whether the thing is not allowed for lending
+        eyeProtection:
+          type: boolean
+          description: Whether eye protection is required for lending
         stock:
           type: number
           description: The total number of this thing in stock
